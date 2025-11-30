@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(
   cors({
-    origin: "https://www.nodeskdeveloper.com",
+    origin: ["https://www.nodeskdeveloper.com", "https://nodeskdeveloper.com"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
