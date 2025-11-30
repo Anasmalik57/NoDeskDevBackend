@@ -8,7 +8,7 @@ import job from "./src/config/cron.js";
 
 dotenv.config();
 
-connectDB();
+await connectDB();
 
 const app = express();
 
@@ -24,9 +24,7 @@ app.use(
   })
 );
 
-// JSON body parser (increased limit for screenshots)
-app.use(express.json({ limit: "10mb" }));
-app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+app.use(express.json());
 
 // All developer routes
 app.use("/api", developerRoutes);
