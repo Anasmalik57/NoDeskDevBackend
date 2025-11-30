@@ -18,8 +18,8 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(
   cors({
-    origin: "https://www.nodeskdeveloper.com/",
-     methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: "https://www.nodeskdeveloper.com",
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
@@ -37,10 +37,10 @@ app.get("/health", (req, res) => {
 
 // Home route
 app.get("/", (req, res) => {
-  res.json({ 
-    message: "NodeskDeveloper Backend Live!", 
+  res.json({
+    message: "NodeskDeveloper Backend Live!",
     version: "1.0.0",
-    frontend: "https://www.nodeskdeveloper.com"
+    frontend: "https://www.nodeskdeveloper.com",
   });
 });
 
