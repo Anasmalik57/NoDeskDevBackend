@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./src/database/connectDB.js";
 import developerRoutes from "./src/routes/developerRoutes.js";
 import projectRoutes from "./src/routes/projectRoutes.js";
+import userRoutes from "./src/routes/userRoutes.js";
 import job from "./src/config/cron.js";
 
 dotenv.config();
@@ -29,6 +30,7 @@ app.use(express.json());
 // All developer routes
 app.use("/api", developerRoutes);
 app.use("/api", projectRoutes);
+app.use("/api", userRoutes);
 
 // Health check route (Render ko pata chale server alive hai)
 app.get("/health", (req, res) => {
