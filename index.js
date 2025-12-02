@@ -8,6 +8,7 @@ import projectRoutes from "./src/routes/projectRoutes.js";
 import bookDeveloperRoutes from "./src/routes/bookings/bookDeveloperRoutes.js"
 import enquireDeveloperRoutes from "./src/routes/bookings/enquireDeveloperRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
+import requestProductDemoRoutes from "./src/routes/bookings/requestProductDemoRoutes.js";
 
 import job from "./src/config/cron.js";
 
@@ -50,6 +51,7 @@ app.use("/api", projectRoutes);
 app.use("/api", userRoutes);
 app.use("/api", bookDeveloperRoutes);
 app.use("/api", enquireDeveloperRoutes);
+app.use("/api", requestProductDemoRoutes);
 
 // Health check route (Render ko pata chale server alive hai)
 app.get("/health", (req, res) => {
