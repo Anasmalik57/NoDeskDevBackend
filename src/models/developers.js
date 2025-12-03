@@ -62,7 +62,7 @@ const developerSchema = new mongoose.Schema(
       trim: true,
     },
     preferredLanguage: {
-      type: String,
+      type: [String],
       required: [true, "Preferred language is required"],
       trim: true,
     },
