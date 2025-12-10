@@ -88,9 +88,14 @@ const developerSchema = new mongoose.Schema(
 );
 
 // Pre-save hook to auto-generate slug from name
-developerSchema.pre('save', function (next) {
-  if (this.isModified('name') || !this.slug) { // Only generate if name changed or slug is missing
-    this.slug = this.name.toLowerCase().trim().replace(/\s+/g, '-');
+developerSchema.pre("save", function (next) {
+  if (this.isModified("name") || !this.slug) {
+    this.slug = this.name
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w\-]+/g, "")
+      .replace(/\-\-+/g, "-");
   }
   next();
 });
