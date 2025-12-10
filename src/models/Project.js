@@ -122,6 +122,12 @@ const projectSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    slug: {                     // <-- YE ADD KAR DO
+      type: String,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
   },
   {
     timestamps: true, // Automatically adds createdAt and updatedAt
