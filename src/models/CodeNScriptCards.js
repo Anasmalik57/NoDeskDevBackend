@@ -15,6 +15,22 @@ const codeNScriptCardsSchema = new mongoose.Schema(
       required: [true, "Name is required"],
       trim: true,
     },
+    // Project type
+    productType: {
+      type: String,
+      required: [true, "Product type is required"],
+      enum: {
+        values: [
+          "Automation",
+          "Finance",
+          "Education",
+          "Healthcare",
+          "Social",
+          "Other",
+        ],
+        message: "{VALUE} is not a valid product type",
+      },
+    },
 
     // Images Array
     images: {
@@ -167,9 +183,6 @@ codeNScriptCardsSchema.index({ basePrice: 1 });
 codeNScriptCardsSchema.index({ createdAt: -1 });
 
 // Create and export the model
-const CodeNScriptCards = mongoose.model(
-  "CodeNScriptCards",
-  codeNScriptCardsSchema
-);
+const CodeNScriptCards = mongoose.model( "CodeNScriptCards", codeNScriptCardsSchema );
 
 export default CodeNScriptCards;

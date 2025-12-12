@@ -3,16 +3,16 @@ import { createCodeNScriptCard, deleteCodeNScriptCard, getAllCodeNScriptCards, g
 
 const router = express.Router();
 
-// POST - Create new card
+// POST - Create new product card
 router.post("/code-n-script-cards", createCodeNScriptCard);
 
-// GET - All cards
+// GET - All product cards
 router.get("/code-n-script-cards", getAllCodeNScriptCards);
 
-// GET by ID
+// GET - By ID
 router.get("/code-n-script-card/:id", getCodeNScriptCardById);
 
-// GET by Slug
+// GET - By Slug
 router.get("/code-n-script-card/slug/:slug", getCodeNScriptCardBySlug);
 
 // PUT - Update by ID
@@ -21,7 +21,7 @@ router.put("/code-n-script-card/:id", updateCodeNScriptCardById);
 // PUT - Update by Slug
 router.put("/code-n-script-card/slug/:slug", updateCodeNScriptCardBySlug);
 
-// DELETE by ID
+// DELETE - By ID
 router.delete("/code-n-script-card/:id", deleteCodeNScriptCard);
 
 export default router;
