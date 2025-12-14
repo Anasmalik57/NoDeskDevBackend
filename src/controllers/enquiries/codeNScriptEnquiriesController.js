@@ -1,58 +1,41 @@
-import CodeNScriptEnquiries from "../../models/enquiries/CodeNScriptEnquiries.js"
+import CodeNScriptEnquiries from "../../models/enquiries/CodeNScriptEnquiries.js";
 
-// Create new enquiry (from frontend form)
+// Create new enquiry
 export const createEnquiry = async (req, res) => {
   try {
-    const { name, images, basePrice, installation, customization, branding, paymentGatewayIntegration, deployment, cloudSetup, playConsoleUpload, iosConsoleUpload, codeLink, codePreview, previousLink, installationType, codeLanguages, clientSideRequirements, description, } = req.body;
+    const enquiryData = req.body;
 
-    // Basic validation (Mongoose will handle most, but good to double-check critical fields)
-    if (!name || !basePrice) {
-      return res.status(400).json({
-        success: false,
-        message: "Name and basePrice are required",
-      });
+    // Ensure arrays are properly handled
+    if (enquiryData.codeLanguages && typeof enquiryData.codeLanguages === "string") {
+      enquiryData.codeLanguages = enquiryData.codeLanguages.split(",").map(lang => lang.trim()).filter(Boolean);
+    }
+    if (enquiryData.clientSideRequirements && typeof enquiryData.clientSideRequirements === "string") {
+      enquiryData.clientSideRequirements = enquiryData.clientSideRequirements.split(",").map(req => req.trim()).filter(Boolean);
+    }
+    if (enquiryData.installationType && typeof enquiryData.installationType === "string") {
+      enquiryData.installationType = enquiryData.installationType.split(",").map(type => type.trim()).filter(Boolean);
     }
 
-    const newEnquiry = await CodeNScriptEnquiries.create({
-      name,
-      images: images || [],
-      basePrice,
-      installation: !!installation,
-      customization: !!customization,
-      branding: !!branding,
-      paymentGatewayIntegration: !!paymentGatewayIntegration,
-      deployment: !!deployment,
-      cloudSetup: !!cloudSetup,
-      playConsoleUpload: !!playConsoleUpload,
-      iosConsoleUpload: !!iosConsoleUpload,
-      codeLink,
-      codePreview,
-      previousLink,
-      installationType: installationType || [],
-      codeLanguages: codeLanguages || [],
-      clientSideRequirements: clientSideRequirements || [],
-      description: description || "",
-    });
+    const newEnquiry = await CodeNScriptEnquiries.create(enquiryData);
 
     res.status(201).json({
       success: true,
+      message: "Enquiry submitted successfully",
       data: newEnquiry,
-      message: "Enquiry created successfully",
     });
   } catch (error) {
     console.error("Error creating enquiry:", error);
     res.status(500).json({
       success: false,
-      message: error.message || "Server error",
+      message: error.message || "Failed to submit enquiry",
     });
   }
 };
 
-// Get all enquiries (for admin panel)
+// Get all enquiries (Admin)
 export const getAllEnquiries = async (req, res) => {
   try {
-    const enquiries = await CodeNScriptEnquiries.find()
-      .sort({ createdAt: -1 });
+    const enquiries = await CodeNScriptEnquiries.find().sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
@@ -67,16 +50,18 @@ export const getAllEnquiries = async (req, res) => {
   }
 };
 
-// Get single enquiry by ID (admin view detail)
+// Get single enquiry by ID (Admin)
 export const getEnquiryById = async (req, res) => {
   try {
     const enquiry = await CodeNScriptEnquiries.findById(req.params.id);
+
     if (!enquiry) {
       return res.status(404).json({
         success: false,
         message: "Enquiry not found",
       });
     }
+
     res.status(200).json({
       success: true,
       data: enquiry,
@@ -89,16 +74,18 @@ export const getEnquiryById = async (req, res) => {
   }
 };
 
-// Optional: Delete enquiry (admin)
+// Delete enquiry (Admin)
 export const deleteEnquiry = async (req, res) => {
   try {
     const enquiry = await CodeNScriptEnquiries.findByIdAndDelete(req.params.id);
+
     if (!enquiry) {
       return res.status(404).json({
         success: false,
         message: "Enquiry not found",
       });
     }
+
     res.status(200).json({
       success: true,
       message: "Enquiry deleted successfully",

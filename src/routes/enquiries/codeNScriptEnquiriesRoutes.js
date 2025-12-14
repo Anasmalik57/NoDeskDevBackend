@@ -3,16 +3,16 @@ import { createEnquiry, deleteEnquiry, getAllEnquiries, getEnquiryById } from ".
 
 const router = express.Router();
 
-// POST - Create new enquiry (public – from detail page form)
+// POST - Submit new enquiry (Public)
 router.post("/add-code-n-script-enquiry", createEnquiry);
 
-// GET - All enquiries (admin only – protect this route if needed)
+// GET - All enquiries (Admin only - add auth middleware if needed)
 router.get("/code-n-script-enquiries", getAllEnquiries);
 
-// GET - Single enquiry by ID (admin)
+// GET - Single enquiry by ID (Admin)
 router.get("/code-n-script-enquiry/:id", getEnquiryById);
 
-// DELETE - Delete enquiry (admin)
+// DELETE - Delete enquiry (Admin)
 router.delete("/code-n-script-enquiry/:id", deleteEnquiry);
 
 export default router;

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const codeNScriptEnquiriesSchema = new mongoose.Schema(
   {
+    // Basic Information
     name: {
       type: String,
       required: [true, "Name is required"],
@@ -29,45 +30,53 @@ const codeNScriptEnquiriesSchema = new mongoose.Schema(
       min: [0, "Base price cannot be negative"],
     },
 
-    // Additional Services (Boolean or Selected Services)
+    // Additional Services with Prices
     installation: {
-      type: Boolean,
-      default: false,
+      type: Number,
+      min: [0, "Installation price cannot be negative"],
+      default: 0,
     },
 
     customization: {
-      type: Boolean,
-      default: false,
+      type: Number,
+      min: [0, "Customization price cannot be negative"],
+      default: 0,
     },
 
     branding: {
-      type: Boolean,
-      default: false,
+      type: Number,
+      min: [0, "Branding price cannot be negative"],
+      default: 0,
     },
 
     paymentGatewayIntegration: {
-      type: Boolean,
-      default: false,
+      type: Number,
+      min: [0, "Payment gateway integration price cannot be negative"],
+      default: 0,
     },
 
     deployment: {
-      type: Boolean,
-      default: false,
+      type: Number,
+      min: [0, "Deployment price cannot be negative"],
+      default: 0,
     },
 
     cloudSetup: {
-      type: Boolean,
-      default: false,
+      type: Number,
+      min: [0, "Cloud setup price cannot be negative"],
+      default: 0,
     },
 
     playConsoleUpload: {
-      type: Boolean,
-      default: false,
+      type: Number,
+      min: [0, "Play console upload price cannot be negative"],
+      default: 0,
     },
 
     iosConsoleUpload: {
-      type: Boolean,
-      default: false,
+      type: Number,
+      min: [0, "iOS console upload price cannot be negative"],
+      default: 0,
     },
 
     // Links
@@ -143,6 +152,25 @@ const codeNScriptEnquiriesSchema = new mongoose.Schema(
   }
 );
 
+// Virtual field to calculate total price
+codeNScriptEnquiriesSchema.virtual("totalPrice").get(function () {
+  return (
+    this.basePrice +
+    this.installation +
+    this.customization +
+    this.branding +
+    this.paymentGatewayIntegration +
+    this.deployment +
+    this.cloudSetup +
+    this.playConsoleUpload +
+    this.iosConsoleUpload
+  );
+});
+
+// Ensure virtuals are included when converting to JSON
+codeNScriptEnquiriesSchema.set("toJSON", { virtuals: true });
+codeNScriptEnquiriesSchema.set("toObject", { virtuals: true });
+
 // Indexes for better query performance
 codeNScriptEnquiriesSchema.index({ name: 1 });
 codeNScriptEnquiriesSchema.index({ basePrice: 1 });
@@ -151,6 +179,6 @@ codeNScriptEnquiriesSchema.index({ codeLanguages: 1 });
 codeNScriptEnquiriesSchema.index({ createdAt: -1 });
 
 // Create and export the model
-const CodeNScriptEnquiries = mongoose.model("CodeNScriptEnquiries", codeNScriptEnquiriesSchema);
+const CodeNScriptEnquiries = mongoose.model( "CodeNScriptEnquiries", codeNScriptEnquiriesSchema );
 
 export default CodeNScriptEnquiries;
