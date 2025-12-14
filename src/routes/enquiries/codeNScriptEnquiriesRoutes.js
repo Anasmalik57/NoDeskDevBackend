@@ -1,18 +1,21 @@
 import express from "express";
-import { createEnquiry, deleteEnquiry, getAllEnquiries, getEnquiryById } from "../../controllers/enquiries/codeNScriptEnquiriesController.js";
+import { createEnquiry, deleteEnquiry, getAllEnquiries, getEnquiryById, updateEnquiryById } from "../../controllers/enquiries/codeNScriptEnquiriesController.js";
 
 const router = express.Router();
 
 // POST - Submit new enquiry (Public)
-router.post("/add-code-n-script-enquiry", createEnquiry);
+router.post("/code-n-script-enquiries", createEnquiry);
 
-// GET - All enquiries (Admin only - add auth middleware if needed)
+// GET - All enquiries (Admin)
 router.get("/code-n-script-enquiries", getAllEnquiries);
 
-// GET - Single enquiry by ID (Admin)
+// GET - Single enquiry by ID
 router.get("/code-n-script-enquiry/:id", getEnquiryById);
 
-// DELETE - Delete enquiry (Admin)
+// PUT - Update enquiry by ID (Admin - e.g., change status)
+router.put("/code-n-script-enquiry/:id", updateEnquiryById);
+
+// DELETE - Delete enquiry
 router.delete("/code-n-script-enquiry/:id", deleteEnquiry);
 
 export default router;

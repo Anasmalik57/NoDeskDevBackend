@@ -142,6 +142,12 @@ const codeNScriptEnquiriesSchema = new mongoose.Schema(
       trim: true,
       default: "",
     },
+    // Status
+     status: {
+      type: String,
+      default: "Pending",
+      enum: ["Pending", "Scheduled", "Completed", "Cancelled"],
+    },
   },
   {
     // Automatically add createdAt and updatedAt timestamps
