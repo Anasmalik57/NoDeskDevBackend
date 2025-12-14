@@ -4,7 +4,7 @@ import { createEnquiry, deleteEnquiry, getAllEnquiries, getEnquiryById, updateEn
 const router = express.Router();
 
 // POST - Submit new enquiry (Public)
-router.post("/code-n-script-enquiries", createEnquiry);
+router.post("/add-code-n-script-enquiry", createEnquiry);
 
 // GET - All enquiries (Admin)
 router.get("/code-n-script-enquiries", getAllEnquiries);
